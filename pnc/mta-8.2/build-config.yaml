@@ -1,0 +1,50 @@
+#
+#!mta-release-version=8.2.0
+#!mta-pnc-version=8.2
+#!jdtls-scm-revision=v1.63.0-mta.2
+#!milestone=CR1
+#!version-override={{mta-release-version}}.{{milestone}}
+#
+# JDT.LS is built from the MTA fork (branch mta-1.63), which carries the downstream
+# target-platform pins; no patches are applied at build time.
+# Output org.eclipse.jdt.ls:org.eclipse.jdt.ls.product:tar.gz is consumed by the
+# mta-jdtls-server-base Konflux image (ocp-build-data, cachi2 maven resource).
+product:
+  name: "Migration Toolkit for Applications"
+  abbreviation: mta
+  stage: GA
+version: "{{mta-release-version}}"
+milestone: {{milestone}}
+group: "Migration Toolkit for Applications {{mta-release-version}} JDTLS"
+
+outputPrefixes:
+  releaseFile: mta
+  releaseDir: mta
+
+builds:
+  - name: "org.eclipse.jdt.ls-{{ mta-pnc-version }}"
+    project: "tackle/tackle"
+    buildScript: |-
+      JAVA_TOOL_OPTIONS="$JAVA_TOOL_OPTIONS -Djdk.http.auth.tunneling.disabledSchemes="
+      touch org.eclipse.jdt.ls.core/gradle/checksums/checksums.json org.eclipse.jdt.ls.core/gradle/checksums/versions.json
+      mvn org.eclipse.tycho:tycho-versions-plugin:5.0.2:update-eclipse-metadata -Dtycho.disableP2Mirrors=true -Dhttp.proxyHost=${proxyServer} -Dhttp.proxyPort=${proxyPort} -Dhttp.proxyUser=${proxyUsername} -Dhttp.proxyPassword=${accessToken}
+      mvn clean deploy -DskipTests -Pserver-distro -DprofileIdEnabled=true -Declipse.jdt.ls.skipGradleChecksums -Dtycho.disableP2Mirrors=true -Dtycho.strictVersions=false -Dorg.apache.maven.user-settings=/usr/share/maven/conf/settings.xml -Dhttp.proxyHost=${proxyServer} -Dhttp.proxyPort=${proxyPort} -Dhttp.proxyUser=${proxyUsername} -Dhttp.proxyPassword=${accessToken}
+    scmUrl: "https://github.com/migtools/mta-eclipse.jdt.ls.git"
+    scmRevision: "{{ jdtls-scm-revision }}"
+    systemImageId: "builder-rhel-8-j25-mvn3.9.12-gradle9.2.1:1.0.0"
+    brewPullActive: false
+    buildType: "MVN"
+    extraRepositories:
+      - "https://www.jetbrains.com/intellij-repository/releases/"
+    alignmentParameters:
+      - "-DversionOverride={{version-override}}"
+
+flow:
+  licensesGeneration:
+    strategy: IGNORE
+  repositoryGeneration:
+    strategy: IGNORE
+  javadocGeneration:
+    strategy: IGNORE
+  sourcesGeneration:
+    strategy: IGNORE
