@@ -37,9 +37,11 @@
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<!-- MTA: upstream publishes no versioned jdt-javac p2 repo, only a moving 'latest'. This is a byte-identical mirror of
-			     org.eclipse.jdt.core.javac 1.0.0.z20260430-1959 (the build shipped in v1.63.0), published as a fork release asset. -->
+			     org.eclipse.jdt.core.javac 1.0.0.z20260430-1959 (the build shipped in v1.63.0), kept on the fork's p2-jdt-javac
+			     branch (tag p2-jdt-javac-1.0.0.z20260430-1959) and addressed by commit SHA. Plain https, not jar:, so that Tycho
+			     fetches it through the PNC build proxy. -->
 			<unit id="org.eclipse.jdt.core.javac" version="1.0.0.z20260430-1959" />
-			<repository location="jar:https://github.com/migtools/mta-eclipse.jdt.ls/releases/download/jdt-javac-1.0.0.z20260430-1959/jdt-javac-p2-1.0.0.z20260430-1959.zip!/" />
+			<repository location="https://raw.githubusercontent.com/migtools/mta-eclipse.jdt.ls/e4886333d8537387398d0bebee1d09685965820d/" />
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="org.eclipse.xtext.xbase.lib" version="0.0.0" />
