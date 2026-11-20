@@ -4,7 +4,7 @@
 	<locations>
 		<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="org.eclipse.buildship.feature.group" version="0.0.0" />
-			<repository location="https://download.eclipse.org/buildship/updates/latest-snapshot/" />
+			<repository location="https://download.eclipse.org/buildship/updates/e441/releases/3.x/3.1.12.v20260915-0911/" />
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="org.eclipse.m2e.jdt" version="0.0.0" />
@@ -33,10 +33,11 @@
 			<unit id="org.eclipse.jdt.core.compiler.batch" version="0.0.0" />
 			<unit id="org.eclipse.jdt.core" version="0.0.0" />
 			<unit id="org.eclipse.jdt.apt.core" version="0.0.0" />
-			<repository location="https://download.eclipse.org/eclipse/updates/4.42-I-builds/I20261012-2300" />
+			<repository location="https://download.eclipse.org/eclipse/updates/4.42-I-builds/I20261025-2300" />
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="org.eclipse.jdt.core.javac" version="0.0.0" />
+			<!-- MTA: no versioned jdt-javac p2 repo is published; pin the exact unit so a changed 'latest' fails instead of drifting -->
+			<unit id="org.eclipse.jdt.core.javac" version="1.0.0.z20260430-1959" />
 			<repository location="https://download.eclipse.org/jdtls/jdt-javac/snapshots/repository/latest/" />
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
